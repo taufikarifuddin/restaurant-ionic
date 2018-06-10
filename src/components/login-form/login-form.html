@@ -1,0 +1,27 @@
+
+<form [formGroup]="loginFormData" (ngSubmit)="onSubmit()">
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="contact"></ion-icon>
+      </ion-label>
+      <ion-input 
+          type="text" 
+          placeholder="Username" 
+          formControlName="username"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+          <ion-icon name="key"></ion-icon>
+        </ion-label>
+        <ion-input type="text" 
+          formControlName="password"
+          placeholder="Password"></ion-input>
+      </ion-item>          
+      <ion-item>                
+          <button ion-button
+          [disabled] = "!loginFormData.valid" 
+          full medium>Login</button>          
+      </ion-item>   
+  </ion-list>
+</form>

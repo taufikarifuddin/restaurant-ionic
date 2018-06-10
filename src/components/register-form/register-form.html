@@ -1,0 +1,53 @@
+
+<form [formGroup]="registerFormData" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="contact"></ion-icon>
+        </ion-label>
+        <ion-input 
+            type="text" 
+            placeholder="Username" 
+            formControlName="username"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+            <ion-icon name="contact"></ion-icon>
+          </ion-label>
+          <ion-input 
+              type="name" 
+              placeholder="Name" 
+              formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label>
+            <ion-icon name="mail"></ion-icon>
+          </ion-label>
+          <ion-input 
+              type="email" 
+              placeholder="Email" 
+              formControlName="email"></ion-input>
+      </ion-item>                
+      <ion-item>
+        <ion-label>
+            <ion-icon name="key"></ion-icon>
+          </ion-label>
+          <ion-input type="text" 
+            formControlName="password"
+            placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+            <ion-icon name="key"></ion-icon>
+          </ion-label>
+          <ion-input type="text" 
+            formControlName="repassword"
+            placeholder="Retype-Password"></ion-input>
+      </ion-item>          
+      <ion-item>                
+            <button ion-button
+            [disabled] = "!registerFormData.valid" 
+            full medium>Register</button>          
+      </ion-item>   
+    </ion-list>
+  </form>
