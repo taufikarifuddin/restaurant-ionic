@@ -11,6 +11,7 @@ import { ComponentsModule } from '../components/components.module';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { UserDto } from '../pages/home/user.home.dto';
+import { CheckoutModalComponent } from '../components/checkout-modal/checkout-modal';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UserDto } from '../pages/home/user.home.dto';
     HomePage,
     LoginPage,
     RegisterPage,
+    CheckoutModalComponent
   ],
   providers: [
     StatusBar,

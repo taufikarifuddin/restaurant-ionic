@@ -18,39 +18,38 @@
           </ion-item>
         </ion-list>
       </ion-card-header>
-      <ion-card-content>
-        <ion-segment [(ngModel)]="choosenCategory">
-          <ion-segment-button  *ngFor="let category of categories" value="{{category.name}}">
-            {{category.name}}
-          </ion-segment-button>
-        </ion-segment>
-        <div [ngSwitch]="choosenCategory">
-          <div *ngFor="let detailCategory of categories">
-            <ion-list 
-              *ngSwitchCase="detailCategory.name">
-              <div *ngFor="let food of detailCategory.foods">
-                {{ food | json }}
-              </div>
-              <ion-item *ngFor="let food of detailCategory.foods">
-                <!-- <ion-thumbnail  item-start>
-                  <img src="https://images.scrippsnetworks.com/up/tp/Scripps_-_Food_Category_Prod/114/898/0298982_16x9.jpg" />
-                </ion-thumbnail > -->
-                <ion-card>
-                  <ion-card-content>
-                      {{ food.name }}
-                  </ion-card-content>
-                </ion-card>
+      <ion-card-content padding>
+        <ion-list>
+          <ion-list-header *ngFor="let category of categories;let i = index">
+            <button ion-item (click)="toggleDropDown(i)" detail-none >
+              {{ category.name }}
+            </button>
+            <ion-list *ngIf="category.open">
+              <ion-item  *ngFor="let food of category.foods;let j = index">
+                <ion-thumbnail item-start>
+                  <img src="123" />
+                </ion-thumbnail>
+                <h2>{{ food.name }}</h2>
+                <p>{{ food.price }}</p>
+                <p> 
+                  <button (click)="decreaseQty(i,j)">
+                    <ion-icon add name="arrow-back"></ion-icon>
+                  </button>
+                  {{ food.qty }}
+                  <button (click)="increaseQty(i,j)">
+                      <ion-icon name="arrow-forward"></ion-icon>
+                  </button>
+                </p>
               </ion-item>
-
             </ion-list>
-          </div>
-        </div>
+          </ion-list-header>
+        </ion-list>
       </ion-card-content>
     </ion-card>
     <ion-list>
       <ion-item>
-        <button (click)="goToLogin()" ion-button>
-          Go to Login
+        <button (click)="goToCheckout()" full ion-button>
+          Checkout
         </button>
       </ion-item>
     </ion-list>

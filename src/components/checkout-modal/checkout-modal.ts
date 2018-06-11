@@ -1,0 +1,28 @@
+import { Component } from '@angular/core';
+import { ViewController, NavParams } from 'ionic-angular';
+import { Food } from '../../pages/home/category.dto';
+
+/**
+ * Generated class for the CheckoutModalComponent component.
+ *
+ * See https://angular.io/api/core/Component for more info on Angular
+ * Components.
+ */
+@Component({
+  selector: 'checkout-modal',
+  templateUrl: 'checkout-modal.html'
+})
+export class CheckoutModalComponent {
+
+  orders:Food[];
+
+  constructor(private viewCtrl:ViewController,private params:NavParams) {
+    this.orders = params.get('foods');
+    console.log(this.orders);
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+}

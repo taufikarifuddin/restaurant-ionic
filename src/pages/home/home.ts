@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { UserFormDtoLogin } from '../../components/login-form/user.form.dto';
 import { LoginPage } from '../login/login';
 import { UserDto } from './user.home.dto';
 import { FoodCategory, Food } from './category.dto';
+import { CheckoutModalComponent } from '../../components/checkout-modal/checkout-modal';
 
 @Component({
   selector: 'page-home',
@@ -11,11 +12,14 @@ import { FoodCategory, Food } from './category.dto';
 })
 export class HomePage {
 
-  private user:UserDto;
-  private categories:FoodCategory[];
+  user:UserDto;
+  categories:FoodCategory[];
+  choosenCategory:string; 
 
   constructor(private navCtrl:NavController,
-                private loadingCtrl:LoadingController){
+                private loadingCtrl:LoadingController,
+                private modalCtrl:ModalController
+              ){
     this.user = new UserDto();
   }
 
@@ -31,14 +35,39 @@ export class HomePage {
   }
 
   getDataFromServer(){
-    let food:Food[] = [new Food(),new Food(),new Food()]; 
-
-    this.categories = [new FoodCategory("category 1",food),new FoodCategory("category 2",food),new FoodCategory("category 3",food)];
-    console.log(this.categories);
+    this.categories = [];
+    for (let index = 0; index < 3; index++) {
+      let food:Food[] = [new Food(),new Food(),new Food()]; 
+      this.categories.push(new FoodCategory("Category "+index,food));
+    }
   }
 
-  goToLogin(){
-    this.navCtrl.push(LoginPage);
+  goToCheckout(){
+    let orderItem:Food[] = [];
+    this.categories.forEach((val,index) => {
+      console.log(val.getOrderedItem());
+      orderItem = orderItem.concat(val.getOrderedItem());
+    });
+    this.presentModal(orderItem);
+  }
+
+  toggleDropDown(index){
+    this.categories[index].open = !this.categories[index].open;
+  }
+
+  increaseQty(i,j){
+    ++this.categories[i].foods[j].qty;
+  }
+
+  decreaseQty(i,j){
+    if( this.categories[i].foods[j].qty > 0 ){
+      --this.categories[i].foods[j].qty;
+    }
+  }
+
+  presentModal(foods:Food[] = []){
+    let modal = this.modalCtrl.create(CheckoutModalComponent,{foods : foods});
+    modal.present();
   }
 
 }
