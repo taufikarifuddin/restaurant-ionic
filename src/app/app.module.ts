@@ -8,7 +8,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ComponentsModule } from '../components/components.module';
-import { LoginFormComponent } from '../components/login-form/login-form';
 import { RegisterPage } from '../pages/register/register';
 
 @NgModule({

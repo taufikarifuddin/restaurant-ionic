@@ -9,12 +9,9 @@ import { RegisterPage } from '../register/register';
 })
 export class HomePage {
 
-  private formData:UserFormDtoLogin;
-
   constructor(private navCtrl: NavController,
       private loadingCtrl:LoadingController ) {
 
-    this.formData = new UserFormDtoLogin();
 
   }
 

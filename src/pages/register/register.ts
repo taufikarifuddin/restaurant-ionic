@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, Loading } from 'ionic-angular';
 
 /**
  * Generated class for the RegisterPage page.
@@ -16,7 +16,6 @@ import { IonicPage, NavController, NavParams, LoadingController, Loading } from 
 export class RegisterPage {
 
   constructor(private navCtrl: NavController, 
-    private navParams: NavParams,
     private loadingCtrl:LoadingController ) {
   }
 
