@@ -8,20 +8,29 @@
 
 <ion-content padding color="background">
     <ion-card>
-      <ion-card-header text-center>
-        <strong>Member Login</strong>
-        <p>      
-          <small>
-            Please login to continue...        
-          </small>
-        </p>
+      <ion-card-header>
+        <ion-list>
+          <ion-item text-center>
+            <ion-icon name="contact"></ion-icon> {{ user.username }}
+          </ion-item>
+          <ion-item text-center>
+            <ion-icon name="cash"></ion-icon> {{ user.saldo }}
+          </ion-item>
+        </ion-list>
       </ion-card-header>
       <ion-card-content>
-          <login-form (onSubmit)="onFormSubmit($event)"  [loginData]="'testing'"></login-form>        
-          <p text-center>- OR -</p>
-          <ion-item>
-            <button (click)="onRegisterClick()" ion-button full medium>Register</button>
-          </ion-item>
+        <ion-card>
+          <ion-card-content>
+            
+          </ion-card-content>
+        </ion-card>
       </ion-card-content>
     </ion-card>
+    <ion-list>
+      <ion-item>
+        <button (click)="goToLogin()" ion-button>
+          Go to Login
+        </button>
+      </ion-item>
+    </ion-list>
 </ion-content>

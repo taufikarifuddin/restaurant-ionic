@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
 import { UserFormDtoLogin } from '../../components/login-form/user.form.dto';
-import { RegisterPage } from '../register/register';
+import { LoginPage } from '../login/login';
+import { UserDto } from './user.home.dto';
 
 @Component({
   selector: 'page-home',
@@ -9,40 +10,14 @@ import { RegisterPage } from '../register/register';
 })
 export class HomePage {
 
-  constructor(private navCtrl: NavController,
-      private loadingCtrl:LoadingController ) {
+  private user:UserDto;
 
-
+  constructor(private navCtrl:NavController){
+    this.user = new UserDto();
   }
 
-  onFormSubmit($event){
-    let data = $event;
-    this.showModal();
-    if( this.validate(data) ){
-      setTimeout( () => {
-                
-      },3000);
-    }
-
-  }
-
-  validate(data){
-    return true;
-  }
-
-  showModal(){
-    const loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-
-    loader.present();
-
-    console.log('in');
-  }
-
-  onRegisterClick(){
-    this.navCtrl.push(RegisterPage);
+  goToLogin(){
+    this.navCtrl.push(LoginPage);
   }
 
 }

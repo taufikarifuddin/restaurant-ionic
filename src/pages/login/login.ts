@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { RegisterPage } from '../register/register';
 
 /**
  * Generated class for the LoginPage page.
@@ -15,11 +16,41 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+ 
+  constructor(private navCtrl: NavController,
+    private loadingCtrl:LoadingController ) {
+
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  onFormSubmit($event){
+    let data = $event;
+    this.showModal();
+    if( this.validate(data) ){
+      setTimeout( () => {
+                
+      },3000);
+    }
+
+  }
+
+  validate(data){
+    return true;
+  }
+
+  showModal(){
+    const loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+
+    loader.present();
+
+    console.log('in');
+  }
+
+  onRegisterClick(){
+    this.navCtrl.push(RegisterPage);
   }
 
 }

@@ -9,11 +9,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ComponentsModule } from '../components/components.module';
 import { RegisterPage } from '../pages/register/register';
+import { LoginPage } from '../pages/login/login';
+import { UserDto } from '../pages/home/user.home.dto';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    LoginPage,
     RegisterPage
   ],
   imports: [
@@ -29,7 +32,8 @@ import { RegisterPage } from '../pages/register/register';
   entryComponents: [
     MyApp,
     HomePage,
-    RegisterPage
+    LoginPage,
+    RegisterPage,
   ],
   providers: [
     StatusBar,
