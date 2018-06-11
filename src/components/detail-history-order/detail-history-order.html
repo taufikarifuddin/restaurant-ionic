@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Detail Order
+      </ion-title>
+      <ion-buttons start>                   
+        <button ion-button (click)="dismiss()">         
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+          <ion-col>
+              <strong>Food Name</strong>              
+            </ion-col>
+            <ion-col>
+              <strong>Qty</strong>     
+            </ion-col>              
+            <ion-col>
+              <strong>Price</strong>
+            </ion-col>      
+      </ion-row>
+      <ion-row *ngFor="let order of orders" text-center>
+          <ion-col>
+              {{ order.name }}              
+            </ion-col>
+            <ion-col>
+                {{ order.qty }}              
+            </ion-col>              
+            <ion-col>
+                {{ order.qty * order.price }}              
+            </ion-col>      
+      </ion-row>  
+      <ion-row text-center>
+          <ion-col>
+              <strong>Jumlah</strong>
+            </ion-col>
+            <ion-col>
+              {{ total }}
+            </ion-col>              
+      </ion-row>                          
+    </ion-grid>   
+  </ion-content>

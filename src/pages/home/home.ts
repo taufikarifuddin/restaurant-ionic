@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ModalController, ToastController } from 'ionic-angular';
-import { UserFormDtoLogin } from '../../components/login-form/user.form.dto';
-import { LoginPage } from '../login/login';
 import { UserDto } from './user.home.dto';
 import { FoodCategory, Food } from './category.dto';
 import { CheckoutModalComponent } from '../../components/checkout-modal/checkout-modal';
+import { OrderHistoryPage } from '../order-history/order-history';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -72,6 +72,14 @@ export class HomePage {
     if( this.categories[i].foods[j].qty > 0 ){
       --this.categories[i].foods[j].qty;
     }
+  }
+
+  goHistory(){
+    this.navCtrl.push(OrderHistoryPage);
+  }
+
+  logOut(){
+    this.navCtrl.push(LoginPage);
   }
 
   presentModal(foods:Food[] = []){

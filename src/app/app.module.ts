@@ -10,15 +10,17 @@ import { HomePage } from '../pages/home/home';
 import { ComponentsModule } from '../components/components.module';
 import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
-import { UserDto } from '../pages/home/user.home.dto';
 import { CheckoutModalComponent } from '../components/checkout-modal/checkout-modal';
+import { OrderHistoryPage } from '../pages/order-history/order-history';
+import { DetailHistoryOrderComponent } from '../components/detail-history-order/detail-history-order';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    OrderHistoryPage
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,8 @@ import { CheckoutModalComponent } from '../components/checkout-modal/checkout-mo
     HomePage,
     LoginPage,
     RegisterPage,
+    OrderHistoryPage,    
+    DetailHistoryOrderComponent,
     CheckoutModalComponent
   ],
   providers: [
