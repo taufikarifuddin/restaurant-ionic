@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import { UserFormDtoLogin } from '../../components/login-form/user.form.dto';
 import { LoginPage } from '../login/login';
 import { UserDto } from './user.home.dto';
@@ -18,7 +18,8 @@ export class HomePage {
 
   constructor(private navCtrl:NavController,
                 private loadingCtrl:LoadingController,
-                private modalCtrl:ModalController
+                private modalCtrl:ModalController,
+                private toastCtrl:ToastController
               ){
     this.user = new UserDto();
   }
@@ -47,8 +48,16 @@ export class HomePage {
     this.categories.forEach((val,index) => {
       console.log(val.getOrderedItem());
       orderItem = orderItem.concat(val.getOrderedItem());
-    });
-    this.presentModal(orderItem);
+    });    
+    if( orderItem.length > 0 ){
+      this.presentModal(orderItem);
+    }else{
+      this.toastCtrl.create({
+        message : "Please at least choose 1 menu for ordering",
+        position:'middle',
+        duration:3000
+      }).present();
+    }
   }
 
   toggleDropDown(index){
@@ -68,6 +77,15 @@ export class HomePage {
   presentModal(foods:Food[] = []){
     let modal = this.modalCtrl.create(CheckoutModalComponent,{foods : foods});
     modal.present();
+    modal.onDidDismiss((data,role) => {
+      if( data.approve ){
+        this.toastCtrl.create({
+          message : "Ordered Success",
+          duration:3000,
+          position:'middle'
+        }).present();
+      }
+    })
   }
 
 }

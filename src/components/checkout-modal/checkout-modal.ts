@@ -15,6 +15,7 @@ import { Food } from '../../pages/home/category.dto';
 export class CheckoutModalComponent {
 
   orders:Food[];
+  total:number=0;
 
   constructor(private viewCtrl:ViewController,private params:NavParams) {
     this.orders = params.get('foods');
@@ -22,7 +23,17 @@ export class CheckoutModalComponent {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({ approve:false });
+  }
+
+  ionViewDidLoad(){
+    this.orders.forEach((val,index)=>{
+      this.total += val.qty * val.price;
+    })
+  }
+
+  confirm(){
+    this.viewCtrl.dismiss({ approve : true });
   }
 
 }

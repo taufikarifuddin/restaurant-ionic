@@ -31,12 +31,12 @@ export class Food{
 
     name:string;
     desc:string;
-    price:string;
+    price:number;
     fotoPath:string;
     qty:number;
 
     constructor(name:string = "default food name",desc:string="default desc",
-                    price:string="Rp.100000",foto:string="default foto",qty:number=0){
+                    price:number=100000,foto:string="default foto",qty:number=0){
         this.name = name;
         this.desc = desc;
         this.price = price;
