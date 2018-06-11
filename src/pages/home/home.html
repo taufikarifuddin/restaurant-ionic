@@ -19,11 +19,32 @@
         </ion-list>
       </ion-card-header>
       <ion-card-content>
-        <ion-card>
-          <ion-card-content>
-            
-          </ion-card-content>
-        </ion-card>
+        <ion-segment [(ngModel)]="choosenCategory">
+          <ion-segment-button  *ngFor="let category of categories" value="{{category.name}}">
+            {{category.name}}
+          </ion-segment-button>
+        </ion-segment>
+        <div [ngSwitch]="choosenCategory">
+          <div *ngFor="let detailCategory of categories">
+            <ion-list 
+              *ngSwitchCase="detailCategory.name">
+              <div *ngFor="let food of detailCategory.foods">
+                {{ food | json }}
+              </div>
+              <ion-item *ngFor="let food of detailCategory.foods">
+                <!-- <ion-thumbnail  item-start>
+                  <img src="https://images.scrippsnetworks.com/up/tp/Scripps_-_Food_Category_Prod/114/898/0298982_16x9.jpg" />
+                </ion-thumbnail > -->
+                <ion-card>
+                  <ion-card-content>
+                      {{ food.name }}
+                  </ion-card-content>
+                </ion-card>
+              </ion-item>
+
+            </ion-list>
+          </div>
+        </div>
       </ion-card-content>
     </ion-card>
     <ion-list>
