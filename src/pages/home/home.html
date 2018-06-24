@@ -26,7 +26,7 @@
           </ion-item>
         </ion-list>
       </ion-card-header>
-      <ion-card-content padding>
+      <ion-card-content padding class="background-menu">
         <ion-list>
           <ion-list-header *ngFor="let category of categories;let i = index">
             <button ion-item (click)="toggleDropDown(i)" detail-none >
@@ -55,7 +55,7 @@
       </ion-card-content>
     </ion-card>
     <ion-list>
-      <ion-item>
+      <ion-item class="content">
         <button (click)="goToCheckout()" full ion-button>
           Checkout
         </button>

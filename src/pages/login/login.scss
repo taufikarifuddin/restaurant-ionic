@@ -1,3 +1,18 @@
 page-login {
-
+	@font-face {
+	font-family: 'Poppins-Bold';
+	src: url('../assets/fonts/Poppins-Bold.ttf') format('truetype');
+	}
+	.font-login{
+		font-family: 'Poppins-Bold';
+	}
+	.content{
+		background:-webkit-linear-gradient(-135deg, #EBCB64, #EBEEC1);
+	}
+	.button-full{
+		border-radius:25px;
+	}
+	.login-card{
+		margin-top:100px;
+	}
 }
