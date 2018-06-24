@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
+import { Storage } from '@ionic/storage';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**
  * Generated class for the LoginPage page.
@@ -12,41 +14,32 @@ import { RegisterPage } from '../register/register';
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login.html'
 })
 export class LoginPage {
 
  
   constructor(private navCtrl: NavController,
-    private loadingCtrl:LoadingController ) {
-
-
+    private loadingCtrl:LoadingController,
+    private storage:Storage,
+    private userService:UserServiceProvider) {    
   }
 
   onFormSubmit($event){
     let data = $event;
-    this.showModal();
+  
     if( this.validate(data) ){
-      setTimeout( () => {
-                
-      },3000);
+      this.userService.login(data)
+        .then( data => {
+          console.log(data);
+        });
+      // this.storage.set('username',data.username);
+      // this.navCtrl.pop();
     }
-
   }
 
   validate(data){
     return true;
-  }
-
-  showModal(){
-    const loader = this.loadingCtrl.create({
-      content: "Please wait...",
-      duration: 3000
-    });
-
-    loader.present();
-
-    console.log('in');
   }
 
   onRegisterClick(){

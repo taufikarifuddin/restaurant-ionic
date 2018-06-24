@@ -13,6 +13,8 @@ import { LoginPage } from '../pages/login/login';
 import { CheckoutModalComponent } from '../components/checkout-modal/checkout-modal';
 import { OrderHistoryPage } from '../pages/order-history/order-history';
 import { DetailHistoryOrderComponent } from '../components/detail-history-order/detail-history-order';
+import { UserServiceProvider } from '../providers/user-service/user-service'; 
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { DetailHistoryOrderComponent } from '../components/detail-history-order/
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpClientModule,
     ComponentsModule,
     IonicStorageModule.forRoot({
       name : '_restoDb',
@@ -44,7 +47,9 @@ import { DetailHistoryOrderComponent } from '../components/detail-history-order/
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserServiceProvider,
+    // ModalProvider
   ]
 })
 export class AppModule {}

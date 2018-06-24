@@ -5,12 +5,13 @@ import { FoodCategory, Food } from './category.dto';
 import { CheckoutModalComponent } from '../../components/checkout-modal/checkout-modal';
 import { OrderHistoryPage } from '../order-history/order-history';
 import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage{
 
   user:UserDto;
   categories:FoodCategory[];
@@ -19,16 +20,27 @@ export class HomePage {
   constructor(private navCtrl:NavController,
                 private loadingCtrl:LoadingController,
                 private modalCtrl:ModalController,
-                private toastCtrl:ToastController
+                private toastCtrl:ToastController,
+                private storage:Storage
               ){
     this.user = new UserDto();
+   
   }
+
+  ion
 
   ionViewDidLoad(){
     let loading = this.loadingCtrl.create({
       content : "Getting data from server",
       duration : 1000
     })
+
+    this.storage.get('username').then( (val)  => {
+      if( !val ){
+        this.navCtrl.push(LoginPage);
+      }
+      console.log(val);
+    });    
     loading.present().then(() => {
       this.getDataFromServer();
       loading.dismiss();
