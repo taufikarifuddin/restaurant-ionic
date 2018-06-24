@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, ResolvedReflectiveFactory } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { USER_AUTH } from '../api-constant/api-constant';
 
 /*

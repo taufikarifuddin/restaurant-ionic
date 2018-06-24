@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
@@ -20,7 +20,6 @@ export class LoginPage {
 
  
   constructor(private navCtrl: NavController,
-    private loadingCtrl:LoadingController,
     private storage:Storage,
     private userService:UserServiceProvider) {    
   }
@@ -33,7 +32,7 @@ export class LoginPage {
         .then( data => {
           console.log(data);
         });
-      // this.storage.set('username',data.username);
+      this.storage.set('username',data.username);
       // this.navCtrl.pop();
     }
   }

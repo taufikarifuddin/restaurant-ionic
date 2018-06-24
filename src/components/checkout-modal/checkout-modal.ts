@@ -18,7 +18,7 @@ export class CheckoutModalComponent {
   total:number=0;
 
   constructor(private viewCtrl:ViewController,private params:NavParams) {
-    this.orders = params.get('foods');
+    this.orders = this.params.get('foods');
     console.log(this.orders);
   }
 

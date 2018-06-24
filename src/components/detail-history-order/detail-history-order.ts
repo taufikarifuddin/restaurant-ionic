@@ -19,7 +19,7 @@ export class DetailHistoryOrderComponent {
   total:number = 0;
 
   constructor(private viewCtrl:ViewController,private navParam:NavParams) {
-    this.order = navParam.get('data');
+    this.order = this.navParam.get('data');
   }
 
   ionViewDidLoad(){

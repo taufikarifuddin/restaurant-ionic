@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, ModalController } from 'ionic-angular';
 import { Order } from './order.dto';
 import { DetailHistoryOrderComponent } from '../../components/detail-history-order/detail-history-order';
 
