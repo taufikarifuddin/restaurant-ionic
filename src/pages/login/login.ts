@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
@@ -21,7 +21,8 @@ export class LoginPage {
  
   constructor(private navCtrl: NavController,
     private storage:Storage,
-    private userService:UserServiceProvider) {    
+    private userService:UserServiceProvider,
+    private toast:ToastController) {    
   }
 
   onFormSubmit($event){
@@ -29,13 +30,22 @@ export class LoginPage {
   
     if( this.validate(data) ){
       this.userService.login(data)
-        .then( data => {
-          console.log(data);
+        .then( response => {
+          let resp:any = response;
+          if( !resp.data.status ){
+            this.toast.create({ 
+              message : resp.data.message,
+              position:'middle',
+              duration:1000
+            }).present();
+          }else{
+            this.storage.set('user',resp.data.user);
+            this.navCtrl.pop();
+          }
         });
-      this.storage.set('username',data.username);
-      // this.navCtrl.pop();
     }
   }
+  
 
   validate(data){
     return true;

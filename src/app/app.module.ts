@@ -15,6 +15,8 @@ import { OrderHistoryPage } from '../pages/order-history/order-history';
 import { DetailHistoryOrderComponent } from '../components/detail-history-order/detail-history-order';
 import { UserServiceProvider } from '../providers/user-service/user-service'; 
 import { HttpClientModule } from '@angular/common/http';
+import { OrderServiceProvider } from '../providers/order-service/order-service';
+import { ItemServiceProvider } from '../providers/item-service/item-service';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
+    OrderServiceProvider,
+    ItemServiceProvider,
     // ModalProvider
   ]
 })

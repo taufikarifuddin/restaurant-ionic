@@ -30,7 +30,7 @@ export class LoginFormComponent implements OnInit{
   }
 
   ngOnInit(){
-    console.log(this.data);
+    
   }
 
   onSubmit(){

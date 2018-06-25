@@ -33,15 +33,19 @@ export class Food{
     desc:string;
     price:number;
     fotoPath:string;
-    qty:number;
+    qty:number = 0;
+    status:boolean = true;
 
     constructor(name:string = "default food name",desc:string="default desc",
-                    price:number=100000,foto:string="default foto",qty:number=0){
+                    price:number=100000,status:boolean=true,foto:string="default foto",qty:number=0){
         this.name = name;
         this.desc = desc;
         this.price = price;
         this.fotoPath = foto;
         this.qty = qty;
+        this.status = status;
+
+        console.log(this.qty);
     }
 
 }

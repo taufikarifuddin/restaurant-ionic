@@ -1,64 +1,78 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController, ToastController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ToastController, ViewController } from 'ionic-angular';
 import { UserDto } from './user.home.dto';
 import { FoodCategory, Food } from './category.dto';
 import { CheckoutModalComponent } from '../../components/checkout-modal/checkout-modal';
 import { OrderHistoryPage } from '../order-history/order-history';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
+import { ItemServiceProvider } from '../../providers/item-service/item-service';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
+  providers : [ItemServiceProvider]
 })
 export class HomePage{
 
   user:UserDto;
-  categories:FoodCategory[];
+  categories:FoodCategory[] = [];
   choosenCategory:string; 
 
   constructor(private navCtrl:NavController,
                 private loadingCtrl:LoadingController,
                 private modalCtrl:ModalController,
                 private toastCtrl:ToastController,
-                private storage:Storage
+                private storage:Storage,
+                private viewCtrl:ViewController,
+                private itemService:ItemServiceProvider
               ){
     this.user = new UserDto();
    
   }
-
-  ion
-
   ionViewDidLoad(){
+  
+    this.storage.get('user').then( (val)  => {
+      if( val == null || !val ){
+        this.viewCtrl.dismiss();
+        this.navCtrl.push(LoginPage);
+      }else{
+        this.user.saldo = val.current_saldo;
+        this.user.username = val.username;
+      }
+    });    
+
+    this.getDataFromServer();
+  }
+
+  getDataFromServer(){
+
     let loading = this.loadingCtrl.create({
       content : "Getting data from server",
       duration : 1000
     })
 
-    this.storage.get('username').then( (val)  => {
-      if( !val ){
-        this.navCtrl.push(LoginPage);
-      }
-      console.log(val);
-    });    
     loading.present().then(() => {
-      this.getDataFromServer();
-      loading.dismiss();
+      this.itemService.getMenu()
+        .then( resp => {
+          let cat:FoodCategory[] = <FoodCategory[]> resp;
+          cat.forEach((val) => {
+            let newCat:FoodCategory = new FoodCategory(val.name);
+            let foodsItem:Food[]= [];
+            val.foods.forEach( (v) => {
+              foodsItem.push(new Food(v.name,v.desc,v.price,v.status,v.fotoPath));
+            })
+            newCat.foods = foodsItem;
+            this.categories.push(newCat);
+          })
+        })
     });
-  }
 
-  getDataFromServer(){
-    this.categories = [];
-    for (let index = 0; index < 3; index++) {
-      let food:Food[] = [new Food(),new Food(),new Food()]; 
-      this.categories.push(new FoodCategory("Category "+index,food));
-    }
   }
 
   goToCheckout(){
     let orderItem:Food[] = [];
     this.categories.forEach((val,index) => {
-      console.log(val.getOrderedItem());
       orderItem = orderItem.concat(val.getOrderedItem());
     });    
     if( orderItem.length > 0 ){
@@ -77,6 +91,7 @@ export class HomePage{
   }
 
   increaseQty(i,j){
+    console.log(this.categories[i].foods[j].qty);
     ++this.categories[i].foods[j].qty;
   }
 
@@ -91,6 +106,7 @@ export class HomePage{
   }
 
   logOut(){
+    this.storage.remove('user');
     this.navCtrl.push(LoginPage);
   }
 
