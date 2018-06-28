@@ -117,24 +117,13 @@ export class HomePage{
     modal.present();
     modal.onDidDismiss((data,role) => {
       if( data.approve ){
-        console.log(data);
-        this.orderService.order(this.toDto(data.item,data.total))
-          .then( result => {            
-            let resp:any = result;
-            if( resp.data.status ){
-              this.toastCtrl.create({
-                message : "Ordered Success",
-                duration:3000,
-                position:'middle'
-              }).present();    
-            }
-          })
+        this.orderRequest(data.item,data.total);
       }
     })
   }
 
-  toDto(data:any,total:any){
-    let request:any = [];
+  orderRequest(data:any,total:any){
+    let request:any = {};
     this.storage.get('user').then( (val)  => {
       if( val == null || !val ){
         this.navCtrl.push(LoginPage);
@@ -150,15 +139,20 @@ export class HomePage{
             'food_qty':elem.qty
           });
         });
-    
-        this.user.saldo = val.current_saldo;
-        this.user.username = val.username;
+        
+        this.orderService.order(request)
+        .then( result => {            
+          let resp:any = result;
+          if( resp.data.status ){
+            // this.toastCtrl.create({
+            //   message : "Ordered Success",
+            //   duration:3000,
+            //   position:'middle'
+            // }).present();    
+          }
+        })
       }
     });   
-
-    console.log(request);
-
-    return request;
   }
 
 }
