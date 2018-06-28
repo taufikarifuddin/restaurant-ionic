@@ -33,7 +33,7 @@ export class CheckoutModalComponent {
   }
 
   confirm(){
-    this.viewCtrl.dismiss({ approve : true });
+    this.viewCtrl.dismiss({ approve : true,total : this.total,item : this.orders });
   }
 
 }

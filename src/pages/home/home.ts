@@ -7,11 +7,12 @@ import { OrderHistoryPage } from '../order-history/order-history';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 import { ItemServiceProvider } from '../../providers/item-service/item-service';
+import { OrderServiceProvider } from '../../providers/order-service/order-service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers : [ItemServiceProvider]
+  providers : [ItemServiceProvider,OrderServiceProvider]
 })
 export class HomePage{
 
@@ -25,7 +26,8 @@ export class HomePage{
                 private toastCtrl:ToastController,
                 private storage:Storage,
                 private viewCtrl:ViewController,
-                private itemService:ItemServiceProvider
+                private itemService:ItemServiceProvider,
+                private orderService:OrderServiceProvider
               ){
     this.user = new UserDto();
    
@@ -34,8 +36,8 @@ export class HomePage{
   
     this.storage.get('user').then( (val)  => {
       if( val == null || !val ){
-        this.viewCtrl.dismiss();
         this.navCtrl.push(LoginPage);
+        this.viewCtrl.dismiss();
       }else{
         this.user.saldo = val.current_saldo;
         this.user.username = val.username;
@@ -60,7 +62,7 @@ export class HomePage{
             let newCat:FoodCategory = new FoodCategory(val.name);
             let foodsItem:Food[]= [];
             val.foods.forEach( (v) => {
-              foodsItem.push(new Food(v.name,v.desc,v.price,v.status,v.fotoPath));
+              foodsItem.push(new Food(v.id,v.name,v.desc,v.price,v.status,v.fotoPath));
             })
             newCat.foods = foodsItem;
             this.categories.push(newCat);
@@ -115,13 +117,48 @@ export class HomePage{
     modal.present();
     modal.onDidDismiss((data,role) => {
       if( data.approve ){
-        this.toastCtrl.create({
-          message : "Ordered Success",
-          duration:3000,
-          position:'middle'
-        }).present();
+        console.log(data);
+        this.orderService.order(this.toDto(data.item,data.total))
+          .then( result => {            
+            let resp:any = result;
+            if( resp.data.status ){
+              this.toastCtrl.create({
+                message : "Ordered Success",
+                duration:3000,
+                position:'middle'
+              }).present();    
+            }
+          })
       }
     })
+  }
+
+  toDto(data:any,total:any){
+    let request:any = [];
+    this.storage.get('user').then( (val)  => {
+      if( val == null || !val ){
+        this.navCtrl.push(LoginPage);
+        this.viewCtrl.dismiss();
+      }else{
+        request['order_user_id'] = val.id;
+        request['order_total_price'] = total;
+        request['order_table_number'] = 1;
+        request['order_item'] = [];
+        data.forEach(elem => {
+          request['order_item'].push({
+            'food_id':elem.id,
+            'food_qty':elem.qty
+          });
+        });
+    
+        this.user.saldo = val.current_saldo;
+        this.user.username = val.username;
+      }
+    });   
+
+    console.log(request);
+
+    return request;
   }
 
 }

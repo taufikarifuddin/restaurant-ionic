@@ -3,6 +3,7 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { RegisterPage } from '../register/register';
 import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the LoginPage page.
@@ -40,7 +41,7 @@ export class LoginPage {
             }).present();
           }else{
             this.storage.set('user',resp.data.user);
-            this.navCtrl.pop();
+            this.navCtrl.push(HomePage);
           }
         });
     }
