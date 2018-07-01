@@ -10,6 +10,7 @@ import { ItemServiceProvider } from '../../providers/item-service/item-service';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
 import { SocketIoServiceProvider } from '../../providers/socket-io-service/socket-io-service';
 import { ProgressModalComponent } from '../../components/progress-modal/progress-modal';
+import { RejectModalComponent } from '../../components/reject-modal/reject-modal';
 
 @Component({
   selector: 'page-home',
@@ -49,10 +50,22 @@ export class HomePage{
     this.getDataFromServer();
     this.socketService.listen(data =>{
       console.log('send back',data);
+      this.onNotifReject(data);
     },data => {
       console.log('change process',data);
       this.notify(data);
     })
+  }
+
+  onNotifReject(data){
+    let stateQtyFood = data.orderItem;
+    stateQtyFood.forEach(val =>{
+      this.categories.forEach(value =>{
+        value.setQtyFood(val.foodId,val.qty);
+      })
+    });
+    let modal = this.modalCtrl.create(RejectModalComponent,{ data : data.reject });
+    modal.present();
   }
 
   notify(data){
@@ -133,10 +146,24 @@ export class HomePage{
   presentModal(foods:Food[] = []){
     let modal = this.modalCtrl.create(CheckoutModalComponent,{foods : foods});
     modal.present();
-    modal.onDidDismiss((data,role) => {
+    modal.onDidDismiss((data) => {
       if( data.approve ){
-        this.orderRequest(data.item,data.total);
+        if( data.total > this.user.saldo ){
+          this.toastCtrl.create({
+            message : 'Insufficient Saldo, Your Saldo '+(data.total - parseInt(this.user.saldo))+',You can topup saldo on Cashier !!',
+            position : 'middle',
+            duration: 2000
+          }).present();
+        }else{
+          this.orderRequest(data.item,data.total);
+        }
       }
+    })
+  }
+
+  resetQty(){
+    this.categories.forEach(val =>{
+      val.resetAllQtyFood();
     })
   }
 
@@ -161,7 +188,8 @@ export class HomePage{
         this.orderService.order(request)
         .then( result => {            
           let resp:any = result;
-          if( resp.data.status ){
+          if( resp.code == 200 ){
+            this.resetQty();
             this.toastCtrl.create({
               message : "Ordered Success",
               duration:3000,

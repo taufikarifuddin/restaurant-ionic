@@ -20,6 +20,7 @@ import { ItemServiceProvider } from '../providers/item-service/item-service';
 import { SocketIoServiceProvider } from '../providers/socket-io-service/socket-io-service';
 import { StepConverterProvider } from '../providers/step-converter/step-converter';
 import { ProgressModalComponent } from '../components/progress-modal/progress-modal';
+import { RejectModalComponent } from '../components/reject-modal/reject-modal';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ProgressModalComponent } from '../components/progress-modal/progress-mo
     OrderHistoryPage,    
     DetailHistoryOrderComponent,
     CheckoutModalComponent,
-    ProgressModalComponent
+    ProgressModalComponent,
+    RejectModalComponent
   ],
   providers: [
     StatusBar,

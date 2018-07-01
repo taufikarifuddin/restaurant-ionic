@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Progress Detail
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">         
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <ion-item >
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <strong>Food</strong>
+            </ion-col>
+            <ion-col>
+                <strong>Reason</strong>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item *ngFor="let data of datas" text-center>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <strong>{{ data.food }}</strong>
+              </ion-col>
+              <ion-col>
+                  <strong>{{ data.note }}</strong>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>  
+    </ion-list>
+    <ion-row>
+      Harap untuk melakukan Submit kembali :)
+    </ion-row>
+</ion-content>

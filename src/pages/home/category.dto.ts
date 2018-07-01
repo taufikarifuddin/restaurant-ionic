@@ -11,6 +11,21 @@ export class FoodCategory{
         this.open = open;
     }
 
+    resetAllQtyFood(){
+        this.foods.forEach((val,index) =>{
+            val.qty = 0
+        });
+    }
+
+    setQtyFood(id:number,qty:number){
+        this.foods.forEach((val,index) =>{
+            if( val.id == id ){
+                val.qty = qty;
+                return;
+            }
+        });
+    }
+
 
     getOrderedItem():Food[]{
         let item:Food[] = [];
