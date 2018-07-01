@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar color="header">
     <ion-title>
-      Restaurant {{ setting ? '(Not Set)' : '( Table No '+setting.noMeja+' )' }} 
+      Restaurant {{ settings ? '('+settings.noMeja+')' : '(Not Set)'}} 
     </ion-title>
     <ion-buttons start>
-      <button ion-button (click)="setting()">         
+      <button ion-button (click)="setting()" *ngIf="user.isAdmin">         
             <ion-icon name="cog"></ion-icon>
       </button>                  
       <button ion-button (click)="goHistory()">         

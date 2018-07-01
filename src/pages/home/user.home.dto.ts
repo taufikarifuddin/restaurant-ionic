@@ -1,11 +1,11 @@
 export class UserDto{
     username:string;
     saldo:string;
-    meja:string;    
+    isAdmin:boolean;
 
-    constructor(username:string = "Taufik Arifuddin",saldo:string = "Rp. 1.000,-",meja:string = "1"){
+    constructor(username:string = "Taufik Arifuddin",saldo:string = "Rp. 1.000,-",isAdmin:boolean=false){
         this.username = username;
         this.saldo = saldo;
-        this.meja = meja;
+        this.isAdmin = false;
     }
 }

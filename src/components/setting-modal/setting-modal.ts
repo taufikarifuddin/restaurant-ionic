@@ -20,17 +20,28 @@ export class SettingModalComponent {
   constructor(private formBuilder:FormBuilder,
       private viewCtrl:ViewController,
       private storage:Storage) { 
+      
 
     this.settingFormData = this.formBuilder.group({
-      noMeja : ["",Validators.required],
-    });
+      noMeja : [0,Validators.required],
+    });      
+
+    
+    storage.get('setting')
+        .then(val =>{
+          this.settingFormData.get('noMeja').setValue(val.noMeja);
+    })
 
   }
 
-  onSubmit(data){
-    this.storage.set('setting',data)
+  dismiss(){
+    this.viewCtrl.dismiss();
+  }
+
+  onSubmit(){
+    this.storage.set('setting',this.settingFormData.value)
       .then(val => {
-        this.viewCtrl.dismiss(data);
+        this.viewCtrl.dismiss(val);
       });
   }
 

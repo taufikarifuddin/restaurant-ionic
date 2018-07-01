@@ -40,6 +40,8 @@ export class LoginPage {
               duration:1000
             }).present();
           }else{
+            let userData = resp.data.user;
+            userData['isAdmin'] = resp.data.isAdmin;
             this.storage.set('user',resp.data.user);
             this.navCtrl.push(HomePage);
           }

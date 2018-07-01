@@ -49,6 +49,7 @@ export class HomePage{
       }else{
         this.user.saldo = val.current_saldo;
         this.user.username = val.username;
+        this.user.isAdmin = val.isAdmin;
       }
     });    
 
@@ -176,7 +177,8 @@ export class HomePage{
     let modal = this.modalCtrl.create(SettingModalComponent);
     modal.present();
     modal.onDidDismiss(data =>{
-      this.settings = data;
+      if( data != null )
+        this.settings = data;
     })
   }
 
@@ -189,7 +191,7 @@ export class HomePage{
       }else{
         request['order_user_id'] = val.id;
         request['order_total_price'] = total;
-        request['order_table_number'] = 1;
+        request['order_table_number'] = this.settings.noMeja;
         request['order_item'] = [];
         data.forEach(elem => {
           request['order_item'].push({
