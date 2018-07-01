@@ -27,6 +27,9 @@
           <ion-item text-center>
             <ion-icon name="cash"></ion-icon> {{ user.saldo }}
           </ion-item>
+          <ion-item text-center *ngIf="!settings">
+            If you see this text, please report to admin, No Settings in Device 
+          </ion-item>
         </ion-list>
       </ion-card-header>
       <ion-card-content padding class="background-menu">
@@ -57,7 +60,7 @@
         </ion-list>
       </ion-card-content>
     </ion-card>
-    <ion-list>
+    <ion-list *ngIf="settings">
       <ion-item class="content">
         <button (click)="goToCheckout()" full ion-button>
           Checkout

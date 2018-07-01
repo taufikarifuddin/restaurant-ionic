@@ -29,7 +29,7 @@ export class SettingModalComponent {
     
     storage.get('setting')
         .then(val =>{
-          if( val != null ){
+          if( val != null && typeof val != 'undefined'){
             this.settingFormData.get('noMeja').setValue(val.noMeja);
           }
     })
