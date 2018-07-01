@@ -50,16 +50,17 @@ export class HomePage{
         this.user.saldo = val.current_saldo;
         this.user.username = val.username;
         this.user.isAdmin = val.isAdmin;
+        this.user.id = val.id;
       }
     });    
 
     this.getDataFromServer();
     this.socketService.listen(data =>{
-      console.log('send back',data);
-      this.onNotifReject(data);
+      if( this.user.id == data.userId )
+        this.onNotifReject(data);
     },data => {
-      console.log('change process',data);
-      this.notify(data);
+      if( this.user.id == data.userId )
+        this.notify(data);
     })
   }
 
@@ -75,6 +76,11 @@ export class HomePage{
   }
 
   notify(data){
+    if( typeof data.saldo != 'undefined' ){
+      this.user.saldo = data.saldo;
+      this.storage.set('user',this.user);
+    }
+
     let modal = this.modalCtrl.create(ProgressModalComponent,{ data : data });
     modal.present();
     modal.onDidDismiss( val =>{
