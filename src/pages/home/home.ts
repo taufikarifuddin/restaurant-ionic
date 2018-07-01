@@ -51,13 +51,14 @@ export class HomePage{
       console.log('send back',data);
     },data => {
       console.log('change process',data);
+      this.notify(data);
     })
   }
 
   notify(data){
     let modal = this.modalCtrl.create(ProgressModalComponent,{ data : data });
-    modal.present()
-      .then( val =>{
+    modal.present();
+    modal.onDidDismiss( val =>{
         if( val ){
           this.goHistory();
         }

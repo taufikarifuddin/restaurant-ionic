@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController } from 'ionic-angular/umd';
+import { NavParams, ViewController } from 'ionic-angular';
 import { StepConverterProvider } from '../../providers/step-converter/step-converter';
 
 /**
@@ -17,23 +17,25 @@ export class ProgressModalComponent {
   data:any;
   message:string;
 
-  constructor(private navParam:NavParams,
+  constructor(
+      private navParam:NavParams,
       private viewCtrl:ViewController,
-      private stepConverter:StepConverterProvider) {
-    this.data = this.navParam.get('data');
+      private stepConverter:StepConverterProvider
+    ) {
+   this.data = this.navParam.get('data');
     this.buildMessage();
   }
 
   buildMessage(){
-    this.message += this.stepConverter.convertToStringMessage(this.data.status);
+   this.message = this.stepConverter.convertToStringMessage(this.data.status);
   }
 
   dismiss(){
-    this.viewCtrl.dismiss(false);
+   this.viewCtrl.dismiss(false);
   }
 
   goToDetail(){
-    this.viewCtrl.dismiss(true);
+   this.viewCtrl.dismiss(true);
   }
 
 }
