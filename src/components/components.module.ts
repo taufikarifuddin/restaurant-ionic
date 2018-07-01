@@ -5,19 +5,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule } from 'ionic-angular';
 import { CheckoutModalComponent } from './checkout-modal/checkout-modal';
 import { DetailHistoryOrderComponent } from './detail-history-order/detail-history-order';
+import { ProgressModalComponent } from './progress-modal/progress-modal';
 @NgModule({
 	declarations: [
 		LoginFormComponent,
 		RegisterFormComponent,
     CheckoutModalComponent,
-    DetailHistoryOrderComponent
+    DetailHistoryOrderComponent,
+    ProgressModalComponent
 	],
 	imports: [BrowserModule,IonicModule],
 	exports: [
 		LoginFormComponent,
 		RegisterFormComponent,
     CheckoutModalComponent,
-    DetailHistoryOrderComponent
+    DetailHistoryOrderComponent,
+    ProgressModalComponent
 	],
 	bootstrap:[]
 })

@@ -40,10 +40,10 @@ export class OrderHistoryPage {
   getDataFromServer(){
 
     let listOrder = this.listOrder;
-
+    console.log(listOrder);
     this.storage.get('user')
       .then(val => {
-        this.service.orderHistory(val.id)
+        this.service.getOrderHistory(val.id)
           .then( rep => {
             let response:Order[] = <Order[]>rep;
             console.log(this.listOrder);

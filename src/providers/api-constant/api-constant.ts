@@ -10,3 +10,8 @@ export const ITEM_GETALL = BASE_API_URL+"/food-category/get-all";
 export const ORDER = BASE_API_URL+"/order/do-order";
 
 export const ORDER_HISTORY = BASE_API_URL+"/order/get-all-order";
+
+
+//socket io
+export const SOCKET_IO_HOST = "localhost";
+export const SOCKET_IO_PORT = "3000";

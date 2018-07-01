@@ -17,6 +17,9 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderServiceProvider } from '../providers/order-service/order-service';
 import { ItemServiceProvider } from '../providers/item-service/item-service';
+import { SocketIoServiceProvider } from '../providers/socket-io-service/socket-io-service';
+import { StepConverterProvider } from '../providers/step-converter/step-converter';
+import { ProgressModalComponent } from '../components/progress-modal/progress-modal';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { ItemServiceProvider } from '../providers/item-service/item-service';
     RegisterPage,
     OrderHistoryPage,    
     DetailHistoryOrderComponent,
-    CheckoutModalComponent
+    CheckoutModalComponent,
+    ProgressModalComponent
   ],
   providers: [
     StatusBar,
@@ -53,6 +57,8 @@ import { ItemServiceProvider } from '../providers/item-service/item-service';
     UserServiceProvider,
     OrderServiceProvider,
     ItemServiceProvider,
+    SocketIoServiceProvider,
+    StepConverterProvider,
     // ModalProvider
   ]
 })

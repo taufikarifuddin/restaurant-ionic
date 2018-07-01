@@ -27,7 +27,7 @@ export class OrderServiceProvider {
     });
   }
 
-  orderHistory(userId){
+  getOrderHistory(userId){
     return new Promise( resolve => {
       this.http.get(ORDER_HISTORY+"?user="+userId)
         .subscribe( response => {
@@ -41,3 +41,6 @@ export class OrderServiceProvider {
   }
 
 }
+
+export const DOING_BY_KOKI = 3;
+export const SUCCESS = 6;

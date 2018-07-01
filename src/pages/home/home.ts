@@ -8,11 +8,12 @@ import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 import { ItemServiceProvider } from '../../providers/item-service/item-service';
 import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { SocketIoServiceProvider } from '../../providers/socket-io-service/socket-io-service';
+import { ProgressModalComponent } from '../../components/progress-modal/progress-modal';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html',
-  providers : [ItemServiceProvider,OrderServiceProvider]
+  templateUrl: 'home.html'
 })
 export class HomePage{
 
@@ -27,7 +28,8 @@ export class HomePage{
                 private storage:Storage,
                 private viewCtrl:ViewController,
                 private itemService:ItemServiceProvider,
-                private orderService:OrderServiceProvider
+                private orderService:OrderServiceProvider,
+                private socketService:SocketIoServiceProvider
               ){
     this.user = new UserDto();
    
@@ -45,6 +47,21 @@ export class HomePage{
     });    
 
     this.getDataFromServer();
+    this.socketService.listen(data =>{
+      console.log('send back',data);
+    },data => {
+      console.log('change process',data);
+    })
+  }
+
+  notify(data){
+    let modal = this.modalCtrl.create(ProgressModalComponent,{ data : data });
+    modal.present()
+      .then( val =>{
+        if( val ){
+          this.goHistory();
+        }
+      });
   }
 
   getDataFromServer(){
