@@ -35,7 +35,7 @@ export class OrderHistoryPage {
     this.modalCtrl
       .create(DetailHistoryOrderComponent,{ data : this.listOrder[index] })
       .present();
-  }
+  } 
 
   getDataFromServer(){
 
