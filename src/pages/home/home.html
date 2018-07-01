@@ -1,9 +1,12 @@
 <ion-header>
   <ion-navbar color="header">
     <ion-title>
-      Restaurant
+      Restaurant {{ setting ? '(Not Set)' : '( Table No '+setting.noMeja+' )' }} 
     </ion-title>
     <ion-buttons start>
+      <button ion-button (click)="setting()">         
+            <ion-icon name="cog"></ion-icon>
+      </button>                  
       <button ion-button (click)="goHistory()">         
             <ion-icon name="cart"></ion-icon>
       </button>                  

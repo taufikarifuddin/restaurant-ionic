@@ -11,6 +11,7 @@ import { OrderServiceProvider } from '../../providers/order-service/order-servic
 import { SocketIoServiceProvider } from '../../providers/socket-io-service/socket-io-service';
 import { ProgressModalComponent } from '../../components/progress-modal/progress-modal';
 import { RejectModalComponent } from '../../components/reject-modal/reject-modal';
+import { SettingModalComponent } from '../../components/setting-modal/setting-modal';
 
 @Component({
   selector: 'page-home',
@@ -21,6 +22,7 @@ export class HomePage{
   user:UserDto;
   categories:FoodCategory[] = [];
   choosenCategory:string; 
+  settings:any;
 
   constructor(private navCtrl:NavController,
                 private loadingCtrl:LoadingController,
@@ -32,11 +34,14 @@ export class HomePage{
                 private orderService:OrderServiceProvider,
                 private socketService:SocketIoServiceProvider
               ){
-    this.user = new UserDto();
-   
+    this.user = new UserDto();    
   }
   ionViewDidLoad(){
   
+    this.storage.get('setting').then( val =>{
+      this.settings = val;
+    });
+
     this.storage.get('user').then( (val)  => {
       if( val == null || !val ){
         this.navCtrl.push(LoginPage);
@@ -164,6 +169,14 @@ export class HomePage{
   resetQty(){
     this.categories.forEach(val =>{
       val.resetAllQtyFood();
+    })
+  }
+
+  setting(){
+    let modal = this.modalCtrl.create(SettingModalComponent);
+    modal.present();
+    modal.onDidDismiss(data =>{
+      this.settings = data;
     })
   }
 

@@ -21,6 +21,7 @@ import { SocketIoServiceProvider } from '../providers/socket-io-service/socket-i
 import { StepConverterProvider } from '../providers/step-converter/step-converter';
 import { ProgressModalComponent } from '../components/progress-modal/progress-modal';
 import { RejectModalComponent } from '../components/reject-modal/reject-modal';
+import { SettingModalComponent } from '../components/setting-modal/setting-modal';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { RejectModalComponent } from '../components/reject-modal/reject-modal';
     DetailHistoryOrderComponent,
     CheckoutModalComponent,
     ProgressModalComponent,
-    RejectModalComponent
+    RejectModalComponent,
+    SettingModalComponent
   ],
   providers: [
     StatusBar,

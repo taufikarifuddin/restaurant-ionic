@@ -7,6 +7,7 @@ import { CheckoutModalComponent } from './checkout-modal/checkout-modal';
 import { DetailHistoryOrderComponent } from './detail-history-order/detail-history-order';
 import { ProgressModalComponent } from './progress-modal/progress-modal';
 import { RejectModalComponent } from './reject-modal/reject-modal';
+import { SettingModalComponent } from './setting-modal/setting-modal';
 @NgModule({
 	declarations: [
 		LoginFormComponent,
@@ -14,7 +15,8 @@ import { RejectModalComponent } from './reject-modal/reject-modal';
     CheckoutModalComponent,
     DetailHistoryOrderComponent,
     ProgressModalComponent,
-    RejectModalComponent
+    RejectModalComponent,
+    SettingModalComponent
 	],
 	imports: [BrowserModule,IonicModule],
 	exports: [
@@ -23,7 +25,8 @@ import { RejectModalComponent } from './reject-modal/reject-modal';
     CheckoutModalComponent,
     DetailHistoryOrderComponent,
     ProgressModalComponent,
-    RejectModalComponent
+    RejectModalComponent,
+    SettingModalComponent
 	],
 	bootstrap:[]
 })

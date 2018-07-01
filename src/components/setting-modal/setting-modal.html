@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Detail Order
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">         
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <form [formGroup]="settingFormData" (ngSubmit)="onSubmit()">
+      <ion-grid>
+        <ion-row>
+            <ion-col>
+                <strong>Setting Name</strong>              
+              </ion-col>
+              <ion-col>
+                <strong>Value</strong>     
+              </ion-col>              
+        </ion-row>
+        <ion-row>
+            <ion-col>
+              Nomor Meja
+            </ion-col>            
+            <ion-col>
+                <ion-input type="number" 
+                  formControlName="noMeja"
+                  placeholder="Nomor Meja"></ion-input>
+            </ion-col>
+        </ion-row>          
+      </ion-grid>   
+      <button ion-button
+          [disabled] = "!loginFormData.valid" 
+          full medium>Save Settings</button>          
+    </form>
+  </ion-content>
