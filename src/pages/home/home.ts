@@ -144,11 +144,11 @@ export class HomePage{
         .then( result => {            
           let resp:any = result;
           if( resp.data.status ){
-            // this.toastCtrl.create({
-            //   message : "Ordered Success",
-            //   duration:3000,
-            //   position:'middle'
-            // }).present();    
+            this.toastCtrl.create({
+              message : "Ordered Success",
+              duration:3000,
+              position:'middle'
+            }).present();    
           }
         })
       }

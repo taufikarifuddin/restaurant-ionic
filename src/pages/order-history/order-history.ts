@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController } from 'ionic-angular';
 import { Order } from './order.dto';
 import { DetailHistoryOrderComponent } from '../../components/detail-history-order/detail-history-order';
+import { OrderServiceProvider } from '../../providers/order-service/order-service';
+import { Storage } from '@ionic/storage';
+import { Food } from '../home/category.dto';
 
 /**
  * Generated class for the OrderHistoryPage page.
@@ -17,23 +20,43 @@ import { DetailHistoryOrderComponent } from '../../components/detail-history-ord
 })
 export class OrderHistoryPage {
 
-  listOrder:Order[];
+  listOrder:Order[] = [];
 
-  constructor(public modalCtrl:ModalController) {
+  constructor(public modalCtrl:ModalController,
+          public service:OrderServiceProvider,
+          public storage:Storage) {
   }
 
   ionViewDidLoad() {
-    this.listOrder = [];
-    for (let index = 0; index < 10; index++) {
-      this.listOrder.push(new Order());      
-    }
+    this.getDataFromServer();
   }
 
   goToDetail(index){
     this.modalCtrl
       .create(DetailHistoryOrderComponent,{ data : this.listOrder[index] })
       .present();
+  }
 
+  getDataFromServer(){
+
+    let listOrder = this.listOrder;
+
+    this.storage.get('user')
+      .then(val => {
+        this.service.orderHistory(val.id)
+          .then( rep => {
+            let response:Order[] = <Order[]>rep;
+            console.log(this.listOrder);
+            response.forEach( val =>{
+              let items:Food[] = [];
+              val.items.forEach(val => {
+                items.push(new Food(null,val.name,null,val.price,null,null,val.qty));
+              });
+              listOrder.push(new Order(val.id,val.date,val.total,items));
+            });
+          });
+      })
+    
   }
 
 }

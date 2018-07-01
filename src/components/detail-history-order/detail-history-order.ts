@@ -16,17 +16,17 @@ import { Food } from '../../pages/home/category.dto';
 export class DetailHistoryOrderComponent {
 
   order:Order;
+  orders:Food[];
   total:number = 0;
 
   constructor(private viewCtrl:ViewController,private navParam:NavParams) {
     this.order = this.navParam.get('data');
+    this.orders = this.order.items;
   }
 
   ionViewDidLoad(){
-    let orders = [];
-    orders.push(new Food());
-    orders.forEach((val,index)=>{
-      this.total += val.qty * val.price;
+    this.order.items.forEach((val,index)=>{
+      this.total += val.price;
     })
   }
 
