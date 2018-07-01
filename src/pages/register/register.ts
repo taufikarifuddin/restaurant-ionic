@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, Loading, ToastController } from 'ionic-angular';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**
  * Generated class for the RegisterPage page.
@@ -16,7 +17,9 @@ import { IonicPage, NavController, LoadingController, Loading } from 'ionic-angu
 export class RegisterPage {
 
   constructor(private navCtrl: NavController, 
-    private loadingCtrl:LoadingController ) {
+    private loadingCtrl:LoadingController,
+    private service:UserServiceProvider,
+    private toastCtrl:ToastController) {
   }
 
   ionViewDidLoad() {
@@ -26,10 +29,30 @@ export class RegisterPage {
   onFormSubmit($event){
     let modal = this.getDefaultModal();
     modal.present();
-    setTimeout(() => {
-      modal.dismiss();
-      this.navCtrl.pop();
-    }, 3000);
+    this.service.register($event)
+      .then( resp => {        
+
+        modal.dismiss();
+
+        let response:any = resp;
+        if( response.code != 200 ){
+          for( let keys in response.data ){
+            response.data =  response.data[keys][0];
+            break;
+          }
+        }
+
+        this.toastCtrl.create({
+          message : response.data,
+          position : "middle",
+          duration : 2000
+        }).present()
+
+       if( response.code == 200 ){
+        this.navCtrl.pop();
+       }
+
+      })
   }
 
   getDefaultModal():Loading{

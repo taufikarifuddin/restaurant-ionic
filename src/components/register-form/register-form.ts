@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the RegisterFormComponent component.
@@ -18,10 +19,11 @@ export class RegisterFormComponent {
   @Output("onSubmit")
   _onSubmit = new EventEmitter();
 
-  constructor(private formBuilder:FormBuilder) {
+  constructor(private formBuilder:FormBuilder,
+          private toastCtrl:ToastController) {
     this.registerFormData =  this.formBuilder.group({
       username : ['',Validators.required],
-      name : ['',Validators.required],
+//      name : ['',Validators.required],
       email : ['',Validators.compose([
         Validators.required,
         Validators.pattern("[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})")
@@ -32,7 +34,16 @@ export class RegisterFormComponent {
   }
 
   onSubmit(){
-    this._onSubmit.emit(this.registerFormData.value);
+    let val = this.registerFormData.value;
+    if( val.password != val.repassword ){
+      this.toastCtrl
+        .create({ 
+          message : "Password and Re-TypePassword must be match",
+          position : 'middle' })
+        .present();
+    }else{
+      this._onSubmit.emit(this.registerFormData.value);
+    }
   }
 
 }

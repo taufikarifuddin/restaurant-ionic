@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { USER_AUTH } from '../api-constant/api-constant';
+import { USER_AUTH,USER_REGISTER } from '../api-constant/api-constant';
 
 /*
   Generated class for the UserServiceProvider provider.
@@ -23,7 +23,17 @@ export class UserServiceProvider {
         },err => {
           console.log(err);
         })
-    });
-  
+    });  
+  }
+
+  register(data:any){
+    return new Promise( resolve => {
+      this.http.post(USER_REGISTER,data)
+        .subscribe( data => {
+          resolve(data);
+        },err => {
+          console.log(err);
+        })
+    });  
   }
 }
