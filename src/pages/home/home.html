@@ -36,12 +36,12 @@
         <ion-list>
           <ion-list-header *ngFor="let category of categories;let i = index">
             <button ion-item (click)="toggleDropDown(i)" detail-none >
-              {{ category.name }}
+              <ion-icon name="list"></ion-icon> {{ category.name }}
             </button>
             <ion-list *ngIf="category.open">
               <ion-item  *ngFor="let food of category.foods;let j = index">
                 <ion-thumbnail item-start>
-                  <img src="123" />
+                  <ion-img src="/img/default-image.png"></ion-img>
                 </ion-thumbnail>
                 <h2>{{ food.name }}</h2>
                 <p>{{ food.price }}</p>

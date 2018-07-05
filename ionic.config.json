@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://localhost:80/project/resto/api",
+      "proxyUrl": "http://demo.mydev.id:80/resto/api",
       "rejectUnauthorized": false
     }
   ]
