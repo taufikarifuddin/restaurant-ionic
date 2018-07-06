@@ -41,7 +41,7 @@
             <ion-list *ngIf="category.open">
               <ion-item  *ngFor="let food of category.foods;let j = index">
                 <ion-thumbnail item-start>
-                  <ion-img src="/img/default-image.png"></ion-img>
+                  <img src="{{food.fotoPath}}" />
                 </ion-thumbnail>
                 <h2>{{ food.name }}</h2>
                 <p>{{ food.price }}</p>
