@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="header">
+    <ion-title>
+      Order History
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <strong>Order Id</strong>
+      </ion-col>    
+      <ion-col>
+        <strong>Tanggal</strong>
+      </ion-col>
+      <ion-col>
+          <strong>Total</strong>
+      </ion-col>        
+      <ion-col>
+          <strong>Detail</strong>
+      </ion-col>              
+    </ion-row>
+    <ion-row *ngFor="let order of listOrder;let i = index">
+        <ion-col>
+            {{ order.id }}
+          </ion-col>  
+        <ion-col>
+          {{ order.date }}
+        </ion-col>
+        <ion-col>
+          {{ order.total }}
+        </ion-col>        
+        <ion-col>
+          <button ion-button full medium (click)="goToDetail(i)">
+           Detail 
+          </button>
+        </ion-col>              
+      </ion-row>
+  </ion-grid>
+</ion-content>

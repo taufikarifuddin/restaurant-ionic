@@ -1,0 +1,17 @@
+//export const BASE_API_URL="localhost:80/project/resto/api";
+export const BASE_API_URL="/api";
+
+export const USER_AUTH = BASE_API_URL+"/user/login";
+
+export const USER_REGISTER = BASE_API_URL+"/user/register";
+
+export const ITEM_GETALL = BASE_API_URL+"/food-category/get-all";
+
+export const ORDER = BASE_API_URL+"/order/do-order";
+
+export const ORDER_HISTORY = BASE_API_URL+"/order/get-all-order";
+
+
+//socket io
+export const SOCKET_IO_HOST = "localhost";
+export const SOCKET_IO_PORT = "3000";

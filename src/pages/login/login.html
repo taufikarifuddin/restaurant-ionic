@@ -1,0 +1,19 @@
+<ion-content padding color="background">
+    <ion-card class="login-card">
+      <ion-card-header text-center class="font-login">
+        <strong>Member Login</strong>
+        <p>      
+          <small>
+            Please login to continue...        
+          </small>
+        </p>
+      </ion-card-header>
+      <ion-card-content>
+          <login-form (onSubmit)="onFormSubmit($event)"  [loginData]="'testing'"></login-form>        
+          <p text-center>- OR -</p>
+          <ion-item>
+            <button (click)="onRegisterClick()" ion-button full medium>Register</button>
+          </ion-item>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

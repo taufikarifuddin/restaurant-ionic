@@ -1,14 +1,70 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="header">
     <ion-title>
-      Ionic Blank
+      Restaurant {{ settings ? '('+settings.noMeja+')' : '(Not Set)'}} 
     </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="setting()" *ngIf="user.isAdmin">         
+            <ion-icon name="cog"></ion-icon>
+      </button>                  
+      <button ion-button (click)="goHistory()">         
+            <ion-icon name="cart"></ion-icon>
+      </button>                  
+      <button ion-button (click)="logOut()">         
+          <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding color="background">
+    <ion-card>
+      <ion-card-header>
+        <ion-list>
+          <ion-item text-center>
+            <ion-icon name="contact"></ion-icon> {{ user.username }}
+          </ion-item>
+          <ion-item text-center>
+            <ion-icon name="cash"></ion-icon> {{ user.saldo }}
+          </ion-item>
+          <ion-item text-center *ngIf="!settings">
+            If you see this text, please report to admin, No Settings in Device 
+          </ion-item>
+        </ion-list>
+      </ion-card-header>
+      <ion-card-content padding class="background-menu">
+        <ion-list>
+          <ion-list-header *ngFor="let category of categories;let i = index">
+            <button ion-item (click)="toggleDropDown(i)" detail-none >
+              <ion-icon name="list"></ion-icon> {{ category.name }}
+            </button>
+            <ion-list *ngIf="category.open">
+              <ion-item  *ngFor="let food of category.foods;let j = index">
+                <ion-thumbnail item-start>
+                  <img src="{{food.fotoPath}}" />
+                </ion-thumbnail>
+                <h2>{{ food.name }}</h2>
+                <p>{{ food.price }}</p>
+                <p> 
+                  <button (click)="decreaseQty(i,j)">
+                    <ion-icon add name="arrow-back"></ion-icon>
+                  </button>
+                  {{ food.qty }}
+                  <button (click)="increaseQty(i,j)">
+                      <ion-icon name="arrow-forward"></ion-icon>
+                  </button>
+                </p>
+              </ion-item>
+            </ion-list>
+          </ion-list-header>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+    <ion-list *ngIf="settings">
+      <ion-item class="content">
+        <button (click)="goToCheckout()" full ion-button>
+          Checkout
+        </button>
+      </ion-item>
+    </ion-list>
 </ion-content>
