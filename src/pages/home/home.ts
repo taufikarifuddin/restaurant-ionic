@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController, ToastController, ViewController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController, ToastController, ViewController, Loading } from 'ionic-angular';
 import { UserDto } from './user.home.dto';
 import { FoodCategory, Food } from './category.dto';
 import { CheckoutModalComponent } from '../../components/checkout-modal/checkout-modal';
@@ -12,6 +12,7 @@ import { SocketIoServiceProvider } from '../../providers/socket-io-service/socke
 import { ProgressModalComponent } from '../../components/progress-modal/progress-modal';
 import { RejectModalComponent } from '../../components/reject-modal/reject-modal';
 import { SettingModalComponent } from '../../components/setting-modal/setting-modal';
+import { SeatTableProvider } from '../../providers/seat-table/seat-table';
 
 @Component({
   selector: 'page-home',
@@ -32,7 +33,8 @@ export class HomePage{
                 private viewCtrl:ViewController,
                 private itemService:ItemServiceProvider,
                 private orderService:OrderServiceProvider,
-                private socketService:SocketIoServiceProvider
+                private socketService:SocketIoServiceProvider,
+                private seatService:SeatTableProvider
               ){
     this.user = new UserDto();    
   }
@@ -51,9 +53,44 @@ export class HomePage{
         this.user.username = val.username;
         this.user.isAdmin = val.isAdmin;
         this.user.id = val.id;
+        this.loadAllData();
+        if( !this.user.isAdmin ){
+          this.occupiedTable(val.id);
+        }
       }
     });    
+  }
 
+  doOccupied(seat,user){
+    if( seat != null ){
+      this.seatService.login(seat,user)
+      .then( result  =>{
+        let resp:any = result;
+        if( resp.code == 200 ){
+          this.toastCtrl.create({
+            message : "Table has been Occipied",
+            duration:3000,
+            position : 'middle'
+          }).present();
+        }
+      });
+    }
+  }
+
+  occupiedTable(user){
+    if( this.settings == null ){
+      this.doOccupied(this.settings.noMeja,user);
+    }else{
+      this.storage.get('setting')
+        .then(val => {
+          if( val != null ){
+            this.doOccupied(this.settings.noMeja,user);
+          }
+        })
+    }    
+  }
+
+  loadAllData(){
     this.getDataFromServer();
     this.socketService.listen(data =>{
       if( this.user.id == data.userId )
@@ -90,29 +127,31 @@ export class HomePage{
       });
   }
 
+  getLoading(msg):Loading{
+    return this.loadingCtrl.create({
+      content : msg,
+      duration : 1000
+    });
+  }
+
   getDataFromServer(){
 
-    let loading = this.loadingCtrl.create({
-      content : "Getting data from server",
-      duration : 1000
-    })
-
-    loading.present().then(() => {
+    let loading:Loading = this.getLoading('Getting data from server');    
+    loading.present().then( val => {
       this.itemService.getMenu()
-        .then( resp => {
-          let cat:FoodCategory[] = <FoodCategory[]> resp;
-          cat.forEach((val) => {
-            let newCat:FoodCategory = new FoodCategory(val.name);
-            let foodsItem:Food[]= [];
-            val.foods.forEach( (v) => {
-              foodsItem.push(new Food(v.id,v.name,v.desc,v.price,v.status,v.fotoPath));
-            })
-            newCat.foods = foodsItem;
-            this.categories.push(newCat);
+      .then( resp => {
+        let cat:FoodCategory[] = <FoodCategory[]> resp;
+        cat.forEach((val) => {
+          let newCat:FoodCategory = new FoodCategory(val.name);
+          let foodsItem:Food[]= [];
+          val.foods.forEach( (v) => {
+            foodsItem.push(new Food(v.id,v.name,v.desc,v.price,v.status,v.fotoPath));
           })
+          newCat.foods = foodsItem;
+          this.categories.push(newCat);
         })
-    });
-
+      })
+    });  
   }
 
   goToCheckout(){
@@ -151,6 +190,18 @@ export class HomePage{
   }
 
   logOut(){
+    if( this.settings != null ){
+      this.seatService.logout(this.settings.noMeja)
+        .then(resp => {
+          console.log(resp);
+        });
+      this.doLogout();
+    }else{
+      this.doLogout();
+    }
+  }
+
+  doLogout(){
     this.storage.remove('user');
     this.navCtrl.push(LoginPage);
   }

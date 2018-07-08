@@ -11,6 +11,9 @@ export const ORDER = BASE_API_URL+"/order/do-order";
 
 export const ORDER_HISTORY = BASE_API_URL+"/order/get-all-order";
 
+export const TABLE_REGISTER = BASE_API_URL+"/table-seat/register";
+export const TABLE_LOGIN = BASE_API_URL+"/table-seat/login";
+export const TABLE_LOGOUT = BASE_API_URL+"/table-seat/logout";
 
 //socket io
 export const SOCKET_IO_HOST = "localhost";

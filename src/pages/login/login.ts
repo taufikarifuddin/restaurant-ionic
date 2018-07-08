@@ -26,6 +26,14 @@ export class LoginPage {
     private toast:ToastController) {    
   }
 
+  showMessage(message){
+    this.toast.create({ 
+      message : message,
+      position:'middle',
+      duration:1000
+    }).present();
+  }
+
   onFormSubmit($event){
     let data = $event;
   
@@ -34,16 +42,19 @@ export class LoginPage {
         .then( response => {
           let resp:any = response;
           if( !resp.data.status ){
-            this.toast.create({ 
-              message : resp.data.message,
-              position:'middle',
-              duration:1000
-            }).present();
+            this.showMessage(resp.data.message);
           }else{
             let userData = resp.data.user;
             userData['isAdmin'] = resp.data.isAdmin;
-            this.storage.set('user',resp.data.user);
-            this.navCtrl.push(HomePage);
+            this.storage.get('setting').then( val =>{
+              if( val != null  || userData.isAdmin ){
+                this.storage.set('user',resp.data.user);
+                this.navCtrl.push(HomePage);  
+              }else{
+                this.showMessage('No Settings in Device. Please Report to Cashier / Admin');
+              }
+              console.log(userData.isAdmin);
+            });
           }
         });
     }

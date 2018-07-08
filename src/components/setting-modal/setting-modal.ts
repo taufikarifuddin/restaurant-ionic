@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ViewController } from 'ionic-angular';
+import { ViewController,LoadingController, ToastController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { SeatTableProvider } from '../../providers/seat-table/seat-table';
 
 /**
  * Generated class for the SettingModalComponent component.
@@ -16,10 +17,14 @@ import { Storage } from '@ionic/storage';
 export class SettingModalComponent {
 
   private settingFormData:FormGroup;
-  
+  private isNew:boolean = false;
+
   constructor(private formBuilder:FormBuilder,
       private viewCtrl:ViewController,
-      private storage:Storage) { 
+      private storage:Storage,
+      private service:SeatTableProvider,
+      private loadingCtrl:LoadingController,
+      private toastCrrl:ToastController) { 
       
 
     this.settingFormData = this.formBuilder.group({
@@ -31,6 +36,8 @@ export class SettingModalComponent {
         .then(val =>{
           if( val != null && typeof val != 'undefined'){
             this.settingFormData.get('noMeja').setValue(val.noMeja);
+          }else{
+            this.isNew = true;
           }
     })
 
@@ -43,7 +50,35 @@ export class SettingModalComponent {
   onSubmit(){
     this.storage.set('setting',this.settingFormData.value)
       .then(val => {
-        this.viewCtrl.dismiss(val);
+        if( this.isNew ){
+          let loading = this.loadingCtrl.create({
+            content : "Registering to server,please wait...."
+          });
+
+          loading.present()
+          .then( value => {
+            this.service.register(val.noMeja)
+              .then(result => {
+                let resp:any = result;
+                this.toastCrrl
+                .create({
+                  message : resp.data,
+                  position:'middle',
+                  duration:1000
+                }).present();   
+                loading.dismiss();
+
+                if( resp.code == 200 ){               
+                  this.viewCtrl.dismiss(val);
+                }else{
+                  this.storage.remove('setting');
+                  this.viewCtrl.dismiss(null);
+                }
+              })
+          });         
+        }else{
+          this.viewCtrl.dismiss(val);
+        }
       });
   }
 
