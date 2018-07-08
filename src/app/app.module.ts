@@ -22,6 +22,7 @@ import { StepConverterProvider } from '../providers/step-converter/step-converte
 import { ProgressModalComponent } from '../components/progress-modal/progress-modal';
 import { RejectModalComponent } from '../components/reject-modal/reject-modal';
 import { SettingModalComponent } from '../components/setting-modal/setting-modal';
+import { SeatTableProvider } from '../providers/seat-table/seat-table';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SettingModalComponent } from '../components/setting-modal/setting-modal
     ItemServiceProvider,
     SocketIoServiceProvider,
     StepConverterProvider,
+    SeatTableProvider,
     // ModalProvider
   ]
 })

@@ -46,14 +46,14 @@ export class LoginPage {
           }else{
             let userData = resp.data.user;
             userData['isAdmin'] = resp.data.isAdmin;
-
             this.storage.get('setting').then( val =>{
-              if( val != null ){
+              if( val != null  || userData.isAdmin ){
                 this.storage.set('user',resp.data.user);
                 this.navCtrl.push(HomePage);  
               }else{
                 this.showMessage('No Settings in Device. Please Report to Cashier / Admin');
               }
+              console.log(userData.isAdmin);
             });
           }
         });
