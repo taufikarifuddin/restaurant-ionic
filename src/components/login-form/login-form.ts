@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { UserFormDtoLogin } from './user.form.dto';
 
 /**
  * Generated class for the LoginFormComponent component.
@@ -13,9 +12,6 @@ import { UserFormDtoLogin } from './user.form.dto';
   templateUrl: 'login-form.html'
 })
 export class LoginFormComponent implements OnInit{
-
-  @Input("loginData")
-  private data:UserFormDtoLogin;
 
   @Output("onSubmit")
   private _onSubmit = new EventEmitter();
