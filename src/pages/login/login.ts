@@ -5,12 +5,6 @@ import { Storage } from '@ionic/storage';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { HomePage } from '../home/home';
 
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({

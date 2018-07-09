@@ -17,7 +17,7 @@ export class RejectModalComponent {
 
   constructor(private navParam : NavParams,
     private viewCtrl:ViewController) {
-      this.datas = navParam.get('data');
+      this.datas = this.navParam.get('data');
   }
 
   dismiss(){
