@@ -16,10 +16,17 @@ export class CheckoutModalComponent {
 
   orders:Food[];
   total:number=0;
+  isSufficientSaldo:boolean = false;
+  isUseSaldo:boolean = false;
 
   constructor(private viewCtrl:ViewController,private params:NavParams) {
-    this.orders = this.params.get('foods');
+    this.orders = this.params.get('foods');    
     console.log(this.orders);
+  }
+
+  updateIsUsingSaldo(){
+    this.isUseSaldo = !this.isUseSaldo;
+    console.log(this.isUseSaldo);
   }
 
   dismiss() {
@@ -30,10 +37,15 @@ export class CheckoutModalComponent {
     this.orders.forEach((val,index)=>{
       this.total += val.qty * val.price;
     })
+
+    if( this.total <= this.params.get('currentSaldo') ){
+      this.isSufficientSaldo = true;
+      this.isUseSaldo = true;
+    }
   }
 
   confirm(){
-    this.viewCtrl.dismiss({ approve : true,total : this.total,item : this.orders });
+    this.viewCtrl.dismiss({ approve : true,total : this.total,item : this.orders,isUseSaldo:this.isUseSaldo });
   }
 
 }

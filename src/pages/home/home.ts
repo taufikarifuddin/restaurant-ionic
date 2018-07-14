@@ -207,19 +207,20 @@ export class HomePage{
   }
 
   presentModal(foods:Food[] = []){
-    let modal = this.modalCtrl.create(CheckoutModalComponent,{foods : foods});
+    let modal = this.modalCtrl.create(CheckoutModalComponent,{foods : foods,currentSaldo : this.user.saldo});
     modal.present();
     modal.onDidDismiss((data) => {
       if( data.approve ){
-        if( data.total > this.user.saldo ){
-          this.toastCtrl.create({
-            message : 'Insufficient Saldo, Your Saldo '+(data.total - parseInt(this.user.saldo))+',You can topup saldo on Cashier !!',
-            position : 'middle',
-            duration: 2000
-          }).present();
-        }else{
-          this.orderRequest(data.item,data.total);
-        }
+        this.orderRequest(data.item,data.total,data.isUseSaldo);
+        // if( data.total > this.user.saldo ){
+        //   this.toastCtrl.create({
+        //     message : 'Insufficient Saldo, Your Saldo '+(data.total - parseInt(this.user.saldo))+',You can topup saldo on Cashier !!',
+        //     position : 'middle',
+        //     duration: 2000
+        //   }).present();
+        // }else{
+        //   this.orderRequest(data.item,data.total);
+        // }
       }
     })
   }
@@ -239,7 +240,7 @@ export class HomePage{
     })
   }
 
-  orderRequest(data:any,total:any){
+  orderRequest(data:any,total:any,isUseSaldo:any){
     let request:any = {};
     this.storage.get('user').then( (val)  => {
       if( val == null || !val ){
@@ -249,6 +250,7 @@ export class HomePage{
         request['order_user_id'] = val.id;
         request['order_total_price'] = total;
         request['order_table_number'] = this.settings.noMeja;
+        request['is_use_saldo'] = isUseSaldo;
         request['order_item'] = [];
         data.forEach(elem => {
           request['order_item'].push({
