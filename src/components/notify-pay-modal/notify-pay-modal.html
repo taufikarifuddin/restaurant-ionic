@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Progress Detail
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">         
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+          <ion-col>
+            Please pay your bill at  order with id : {{data.order}} and ordered at : {{data.date}}
+          </ion-col>      
+      </ion-row>   
+      <ion-row>
+        <ion-col>
+          Your order can be cancelled anytime
+        </ion-col>      
+      </ion-row>   
+      <ion-row>
+        <ion-col>
+          <a href="#" (click)="goToDetail()">Click Here Detail of your Order</a>   
+        </ion-col>      
+      </ion-row>   
+    </ion-grid>   
+  </ion-content>

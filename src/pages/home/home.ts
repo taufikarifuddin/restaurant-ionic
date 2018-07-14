@@ -13,6 +13,7 @@ import { ProgressModalComponent } from '../../components/progress-modal/progress
 import { RejectModalComponent } from '../../components/reject-modal/reject-modal';
 import { SettingModalComponent } from '../../components/setting-modal/setting-modal';
 import { SeatTableProvider } from '../../providers/seat-table/seat-table';
+import { NotifyPayModalComponent } from '../../components/notify-pay-modal/notify-pay-modal';
 
 @Component({
   selector: 'page-home',
@@ -98,6 +99,21 @@ export class HomePage{
     },data => {
       if( this.user.id == data.userId )
         this.notify(data);
+    },data =>{
+      if( this.user.id == data.userId ){
+        console.log(this.user.id,data.userId);
+        this.onPayNotif(data);
+      }
+    })
+  }
+
+  onPayNotif(data){
+    let modal = this.modalCtrl.create(NotifyPayModalComponent,{ data : data });
+    modal.present();
+    modal.onDidDismiss(val => {
+      if( val ){
+        this.goHistory();
+      }
     })
   }
 

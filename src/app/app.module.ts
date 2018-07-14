@@ -23,6 +23,7 @@ import { ProgressModalComponent } from '../components/progress-modal/progress-mo
 import { RejectModalComponent } from '../components/reject-modal/reject-modal';
 import { SettingModalComponent } from '../components/setting-modal/setting-modal';
 import { SeatTableProvider } from '../providers/seat-table/seat-table';
+import { NotifyPayModalComponent } from '../components/notify-pay-modal/notify-pay-modal';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { SeatTableProvider } from '../providers/seat-table/seat-table';
     CheckoutModalComponent,
     ProgressModalComponent,
     RejectModalComponent,
-    SettingModalComponent
+    SettingModalComponent,
+    NotifyPayModalComponent
   ],
   providers: [
     StatusBar,

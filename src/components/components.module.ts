@@ -8,6 +8,7 @@ import { DetailHistoryOrderComponent } from './detail-history-order/detail-histo
 import { ProgressModalComponent } from './progress-modal/progress-modal';
 import { RejectModalComponent } from './reject-modal/reject-modal';
 import { SettingModalComponent } from './setting-modal/setting-modal';
+import { NotifyPayModalComponent } from './notify-pay-modal/notify-pay-modal';
 @NgModule({
 	declarations: [
 		LoginFormComponent,
@@ -16,7 +17,8 @@ import { SettingModalComponent } from './setting-modal/setting-modal';
     DetailHistoryOrderComponent,
     ProgressModalComponent,
     RejectModalComponent,
-    SettingModalComponent
+    SettingModalComponent,
+    NotifyPayModalComponent
 	],
 	imports: [BrowserModule,IonicModule],
 	exports: [
@@ -26,7 +28,8 @@ import { SettingModalComponent } from './setting-modal/setting-modal';
     DetailHistoryOrderComponent,
     ProgressModalComponent,
     RejectModalComponent,
-    SettingModalComponent
+    SettingModalComponent,
+    NotifyPayModalComponent
 	],
 	bootstrap:[]
 })
