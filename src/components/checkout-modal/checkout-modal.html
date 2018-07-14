@@ -45,6 +45,19 @@
             <ion-col>
               {{ total }}
             </ion-col>              
-      </ion-row>                          
+      </ion-row>
+      <ion-row center>
+        <ion-item>
+          <ion-label>
+            Use Saldo 
+            <small *ngIf="!isSufficientSaldo">
+                ( you only can buy with CASH, your saldo insufficiently )
+            </small>
+          </ion-label>
+          <ion-checkbox color="dark" disabled="{{!isSufficientSaldo}}" checked="{{isSufficientSaldo}}"
+          (click) = "updateIsUsingSaldo()"
+            ></ion-checkbox>
+        </ion-item>
+      </ion-row>                                  
     </ion-grid>   
   </ion-content>
