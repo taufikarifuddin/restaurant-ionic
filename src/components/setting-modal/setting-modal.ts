@@ -17,7 +17,6 @@ import { SeatTableProvider } from '../../providers/seat-table/seat-table';
 export class SettingModalComponent {
 
   private settingFormData:FormGroup;
-  private isNew:boolean = false;
 
   constructor(private formBuilder:FormBuilder,
       private viewCtrl:ViewController,
@@ -36,8 +35,6 @@ export class SettingModalComponent {
         .then(val =>{
           if( val != null && typeof val != 'undefined'){
             this.settingFormData.get('noMeja').setValue(val.noMeja);
-          }else{
-            this.isNew = true;
           }
     })
 
@@ -50,9 +47,8 @@ export class SettingModalComponent {
   onSubmit(){
     this.storage.set('setting',this.settingFormData.value)
       .then(val => {
-        if( this.isNew ){
           let loading = this.loadingCtrl.create({
-            content : "Registering to server,please wait...."
+            content : "Changing configuraition,Please wait...."
           });
 
           loading.present()
@@ -75,10 +71,7 @@ export class SettingModalComponent {
                   this.viewCtrl.dismiss(null);
                 }
               })
-          });         
-        }else{
-          this.viewCtrl.dismiss(val);
-        }
+          });                 
       });
   }
 

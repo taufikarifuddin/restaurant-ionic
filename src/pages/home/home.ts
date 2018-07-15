@@ -249,10 +249,21 @@ export class HomePage{
 
   setting(){
     let modal = this.modalCtrl.create(SettingModalComponent);
+    let message = "";
     modal.present();
     modal.onDidDismiss(data =>{
-      if( data != null )
+      if( data != null ){
         this.settings = data;
+        message = "Success !!";
+      }else{
+        message = "Sorry, failed to change the configuration, table is not exists / internal error";
+      }
+      this.toastCtrl.create({
+        message : message,
+        position:'middle',
+        duration:1000
+      }).present();
+
     })
   }
 
