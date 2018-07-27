@@ -73,6 +73,13 @@ export class HomePage{
             duration:3000,
             position : 'middle'
           }).present();
+        }else if( resp.code == 403 ){
+          this.toastCtrl.create({
+            message : "Sorry, this table has been Booked by someone,Please Contact cashier for more information",
+            duration : 5000,
+            position : "middle"
+          }).present();
+          this.doLogout();
         }
       });
     }

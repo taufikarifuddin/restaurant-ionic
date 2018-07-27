@@ -16,6 +16,7 @@ export class CheckoutModalComponent {
 
   orders:Food[];
   total:number=0;
+  tempTotal:number = 0;
   isSufficientSaldo:boolean = false;
   isUseSaldo:boolean = false;
 
@@ -26,6 +27,9 @@ export class CheckoutModalComponent {
 
   updateIsUsingSaldo(){
     this.isUseSaldo = !this.isUseSaldo;
+    if( this.isUseSaldo ){
+      this.total = this.tempTotal - ( this.tempTotal * 5 / 100) ;
+    }
     console.log(this.isUseSaldo);
   }
 
@@ -41,6 +45,7 @@ export class CheckoutModalComponent {
     if( this.total <= this.params.get('currentSaldo') ){
       this.isSufficientSaldo = true;
       this.isUseSaldo = true;
+      this.tempTotal = this.total;
     }
   }
 
