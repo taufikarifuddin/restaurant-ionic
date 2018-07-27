@@ -28,7 +28,9 @@ export class CheckoutModalComponent {
   updateIsUsingSaldo(){
     this.isUseSaldo = !this.isUseSaldo;
     if( this.isUseSaldo ){
-      this.total = this.tempTotal - ( this.tempTotal * 5 / 100) ;
+      this.doDiscount();
+    }else{
+      this.total = this.tempTotal;
     }
     console.log(this.isUseSaldo);
   }
@@ -46,7 +48,12 @@ export class CheckoutModalComponent {
       this.isSufficientSaldo = true;
       this.isUseSaldo = true;
       this.tempTotal = this.total;
+      this.doDiscount();
     }
+  }
+
+  doDiscount(){
+    this.total = this.tempTotal - ( this.tempTotal * 5 / 100) ;
   }
 
   confirm(){
